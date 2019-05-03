@@ -31,6 +31,7 @@ class Teachermain extends React.Component{
           console.log(res);
           const data = await res.json();
           console.log(data);
+         
       
           if(res.status === 200){
             const class_subjects = data.class_subjects;
@@ -44,7 +45,7 @@ class Teachermain extends React.Component{
       
             });
             console.log(this.state);
-      
+            //console.log(jsonToCsv(data));
           }
     }
     render(){

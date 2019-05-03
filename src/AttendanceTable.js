@@ -3,11 +3,15 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import "react-datepicker/dist/react-datepicker.css";
 import Datepicker from './Components/Datepicker';
- import PersistentDrawerLeft from './Components/PersistentDrawerLeft';
+import PersistentDrawerLeft from './Components/PersistentDrawerLeft';
 import CustomizedTable from "./Components/CustomizedTable";
+
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 import Grid from '@material-ui/core/Grid';
+import { CsvDownload } from 'react-json-to-csv';
+
+var Save_as = require('file-saver');
 
 const styles = theme => ({ 
 
@@ -61,8 +65,7 @@ class AttendanceTable extends React.Component {
           console.log('fuck off');
           this.setState({
             attendance:data.attendance
-          })
-    
+          })          
       }
     
 
@@ -102,7 +105,6 @@ class AttendanceTable extends React.Component {
       this.setState({
         attendance:data.attendance
       })
-     
       
       console.log('fuck off');
 

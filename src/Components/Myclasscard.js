@@ -13,7 +13,7 @@ import CreateIcon from '@material-ui/icons/Create';
 import RemoveRedEyeIcon from '@material-ui/icons/RemoveRedEye';
 import {Link,Redirect} from 'react-router-dom';
 
-
+var Save_as = require('file-saver');
 
 
 //import './style.css'
@@ -43,9 +43,22 @@ const styles = theme => ({
 class Myclasscard extends React.Component {
   state = { expanded: false };
 
-  componentDidMount(){
-    console.log(this.props.class_subjects);
+
+  async handleClick(subject,div){
+    const url = `https://wizdem.pythonanywhere.com/Attendance/get_csv/${subject}/${div}/01-01-2019/01-05-2019`;
+    const res1 = await fetch(url,{
+      method: 'GET',
+      headers: {
+      'Content-Type': 'text/csv',
+      'X-Requested-With': 'XMLHttpRequest',
+      'Authorization': `Token ${localStorage.getItem('token')}`,
+    },
+    responseType: 'blob',
+    }).then(res => res.blob())
+    .then(blob => Save_as(blob, 'test.csv'))
   }
+
+
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
@@ -70,7 +83,7 @@ class Myclasscard extends React.Component {
               </CardContent>
 
               <CardActions disableActionSpacing style={{}}>
-                <Button variant="contained" color="default" className={classes.button}>
+                <Button variant="contained" color="default" className={classes.button} onClick={this.handleClick.bind(this,subject.name,subject.div)}>
                   Download
                 <CloudDownloadIcon className={classes.rightIcon} />
                 </Button>
