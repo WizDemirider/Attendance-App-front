@@ -22,9 +22,9 @@ const styles = theme => ({
   },
   formControl: {
     width:200,
-    fontSize:16 
+    fontSize:16
   },
-  
+
   button: {
     color:'white',
     padding: 15,
@@ -37,12 +37,12 @@ const styles = theme => ({
     }
   },
   paper: {
-   padding:25, 
+   padding:25,
   },
   intro: {
     display: 'flex'
   },
-  
+
 });
 
 class Subject extends React.Component {
@@ -57,7 +57,7 @@ class Subject extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log("hi");
+    // console.log("hi");
     this.setState({
       semester:'',
       subject:'',
@@ -67,12 +67,12 @@ class Subject extends React.Component {
 
   handleProceed = event => {
     event.preventDefault();
-    console.log('hey');
+    // console.log('hey');
   }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
+    // console.log(this.state);
   };
   render() {
     const { classes } = this.props;
@@ -80,12 +80,12 @@ class Subject extends React.Component {
       <div className={classes.root} >
         <PersistentDrawerLeft />
         <Paper className={classes.paper}>
-       
+
         <form  autoComplete="off">
         <div>
               <Typography component="h2" variant="h3" align="center"  gutterBottom className={classes.text}>SUBJECT </Typography>
             </div>
-        
+
 
         <FormControl className={classes.formControl}>
           <Select
@@ -107,11 +107,11 @@ class Subject extends React.Component {
             <MenuItem value={7}>  Semester 7</MenuItem>
             <MenuItem value={8}>  Semester 8</MenuItem>
           </Select>
-          
+
         </FormControl>
-       
+
         <TextField style={{ width: 500 }}
-          
+
           id="subject"
           label="Subject"
           type="text"
@@ -123,7 +123,7 @@ class Subject extends React.Component {
         />
 
 
-        
+
         <TextField style={{ width: 500 }}
           id="subject-code"
           label="Subject-code"
@@ -134,7 +134,7 @@ class Subject extends React.Component {
           value={this.state.subjectCode}
           onChange={this.handleChange}
         />
-           
+
         <div className={classes.intro}>
           <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleSubmit}>Submit</Button>
           <Button variant="contained" color="secondary" className={classes.button} onClick={this.handleProceed}>Proceed</Button>
@@ -142,10 +142,10 @@ class Subject extends React.Component {
         </form>
         </Paper>
 
-        
-       
-        
-          
+
+
+
+
       </div>
     );
   }

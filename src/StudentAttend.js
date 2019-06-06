@@ -79,9 +79,9 @@ class StudentAttend extends React.Component {
       },
       // mode: 'no-cors',
     })
-    console.log(res);
+    // console.log(res);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     if(res.status === 200){
       this.setState({
@@ -90,16 +90,16 @@ class StudentAttend extends React.Component {
         attendance_total:data.attendance_total,
         attendance_percentage:data.attendance_percentage
       })
-     
-      
-      console.log('fuck off');
+
+
+      // console.log('fuck off');
 
   }
   }
   render(){
     const { classes } = this.props;
     const {attendance,attendance_count,attendance_percentage,attendance_total} = this.state;
-    
+
 
     return (
       <div>
@@ -139,7 +139,7 @@ class StudentAttend extends React.Component {
                           {
                             row.attendance === "1" ? <CustomTableCell className={classes.green}>{row.attendance}</CustomTableCell> : <CustomTableCell className={classes.red}>{row.attendance}</CustomTableCell>
                           }
-                          
+
                         </TableRow>
                       ))}
                     </TableBody>
@@ -150,7 +150,7 @@ class StudentAttend extends React.Component {
             <Grid item xs={2}>
             </Grid>
           </Grid>
-         
+
 
 
       </div>

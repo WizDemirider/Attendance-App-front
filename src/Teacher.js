@@ -42,8 +42,8 @@ const styles = theme => ({
   paper: {
     padding:15,
     alignItems:'center'
-    
-    
+
+
    },
 });
 
@@ -63,7 +63,7 @@ class Teacher extends React.Component{
 
   handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('hi');
+    // console.log('hi');
     const res=await fetch('https://wizdem.pythonanywhere.com/Attendance/signup-teacher/', {
       method: 'POST',
       headers: {
@@ -79,27 +79,27 @@ class Teacher extends React.Component{
         password: this.state.password,
       })
     })
-    console.log(res);
+    // console.log(res);
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     if(res.status === 200){
       localStorage.setItem('token',data.token);
 
-     
+
       this.setState({
         signup:true
       });
 
     }
-  
+
   }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state);
+    // console.log(this.state);
   };
-  
+
   render(){
     const { classes } = this.props;
 
@@ -114,10 +114,10 @@ class Teacher extends React.Component{
          Sign Up
        </Typography>
         <Grid container spacing={12} >
-          <Grid item xs> 
+          <Grid item xs>
           </Grid>
           <Grid item xs>
-          
+
             <div>
               <form autoComplete="off">
                 <Grid container>
@@ -140,7 +140,7 @@ class Teacher extends React.Component{
                     value={this.state.lname}
                     onChange={this.handleChange}
                     margin="normal"
-                    
+
                     fullWidth />
                   </Grid>
                   <Grid item xs={12}>
@@ -152,7 +152,7 @@ class Teacher extends React.Component{
                       value={this.state.password}
                       onChange={this.handleChange}
                       margin="normal"
-                      
+
                       fullWidth />
                   </Grid>
                   <Grid item xs={12}>
@@ -163,7 +163,7 @@ class Teacher extends React.Component{
                       value={this.state.spec}
                       onChange={this.handleChange}
                       margin="normal"
-                      
+
                       fullWidth />
                   </Grid>
                   <Grid item xs={12}>
@@ -174,12 +174,12 @@ class Teacher extends React.Component{
                       value={this.state.teacherId}
                       onChange={this.handleChange}
                       margin="normal"
-                      
+
                       fullWidth />
                   </Grid>
 
-                 
-                 
+
+
                 </Grid>
               </form>
               <div>
@@ -194,7 +194,7 @@ class Teacher extends React.Component{
 
         </Paper>
         {this.state.signup && <Redirect to="/teachermain" />}
-        
+
       </div>
     );
   }

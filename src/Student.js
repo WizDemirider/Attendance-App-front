@@ -13,7 +13,7 @@ const theme=createMuiTheme({
     typography: {
         useNextVariants: true,
       },
-   
+
 }
 
 );
@@ -45,18 +45,18 @@ const styles = theme => ({
     },
     paper: {
       padding:25,
-      
-      
+
+
      },
      formControl: {
       width:200,
       fontSize:16
-      
+
     },
   });
 
 class Student extends React.Component{
-    state={ 
+    state={
       fname:'',
       lname:'',
       sap:'',
@@ -64,13 +64,13 @@ class Student extends React.Component{
         }
     handleChange = event => {
         this.setState({ [event.target.name]: event.target.value });
-        console.log(this.state);
+        // console.log(this.state);
       };
     render(){
       const { classes } = this.props;
         return(
             <div className={classes.root}>
-               <PersistentDrawerLeft /> 
+               <PersistentDrawerLeft />
                <Grid container justify="center" spacing={24}>
             <Grid item>
             <Paper className={classes.paper}>
@@ -105,7 +105,7 @@ class Student extends React.Component{
 
             fullWidth />
             </Grid>
-     
+
             <Grid item xs={7}>
             <TextField
             name="sap"
@@ -133,24 +133,24 @@ class Student extends React.Component{
             </MenuItem>
             <MenuItem value={'A'}>A</MenuItem>
             <MenuItem value={'B'}>B</MenuItem>
-            
+
           </Select>
-          
+
         </FormControl >
-          
+
         </Grid>
             <Grid item xs={7}></Grid>
             <Grid item xs={6}>
           <Button variant="contained" color="primary" className={classes.button}>Submit</Button>
             </Grid>
-    
+
             </Grid>
             </form>
-            </Paper>  
+            </Paper>
             </Grid>
             </Grid>
             </div>
-           
+
         );
     }
 }

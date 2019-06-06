@@ -23,19 +23,19 @@ const CustomTableCell = withStyles(theme => ({
 
 const styles = theme => ({
   root: {
-   
+
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto',
     margin:'auto',
     ['@media (max-width:780px)']: { // eslint-disable-line no-useless-computed-key
         width: '100%!important'
       }
-   
+
   },
   table: {
   minWidth:400,
-  
-   
+
+
   },
   row: {
     '&:nth-of-type(odd)': {
@@ -56,8 +56,8 @@ const styles = theme => ({
     textAlign:'center!important',
     padding:'0px!important'
   }
-  
-  
+
+
 });
 
 let id = 0;
@@ -77,18 +77,18 @@ function createData(name, sap, percent) {
 
 class CustomizedTable extends React.Component {
 
-  
-  
+
+
 
     render(){
         const { classes,attendance } = this.props;
-        console.log(attendance);
+        // console.log(attendance);
         return (
           // <Grid container>
           // <Grid item xs={12} sm={2}>
           // </Grid>
           // <Grid item xs={12} sm={8}>
-          
+
           // </Grid>
           // <Grid item xs={12} sm={2}>
           // </Grid>
@@ -98,7 +98,7 @@ class CustomizedTable extends React.Component {
 
  {(attendance.length == 0) && <Typography variant="h6" align="center">No lecture today</Typography>}
 
-            
+
 <Table className={classes.table}>
   <TableHead>
     <TableRow >
@@ -107,7 +107,7 @@ class CustomizedTable extends React.Component {
       <CustomTableCell  className={classes.tableCenter} style={{fontSize:'1rem'}}>Attendance</CustomTableCell>
       <CustomTableCell  className={classes.tableCenter} style={{fontSize:'1rem'}}>Timing</CustomTableCell>
 
-    
+
     </TableRow>
   </TableHead>
   <TableBody >
@@ -116,7 +116,7 @@ class CustomizedTable extends React.Component {
       <TableRow className={classes.row} key={row.id}>
         <CustomTableCell component="th" scope="row"  className={classes.tableCenter}>
       <Link to={ {pathname:`/student/$${row.sapID}`, subject:this.props.subject,sapID:row.sapID}} style={{textDecoration:'none',color:'black'}}>
-     
+
           {row.name}
         </Link>
         </CustomTableCell>
@@ -128,20 +128,20 @@ class CustomizedTable extends React.Component {
         <CustomTableCell   className={classes.tableCenter} >{item.time}</CustomTableCell>
 
 
-       
-    
+
+
       </TableRow>
     )))}
   </TableBody>
 </Table>
 </Paper>
-            
+
           );
 
     }
 
 
- 
+
 }
 
 CustomizedTable.propTypes = {

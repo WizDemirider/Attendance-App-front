@@ -66,7 +66,7 @@ class login extends React.Component {
     password:'',
     teacherId:'',
     open: false,
-   
+
 
   };
 
@@ -91,7 +91,7 @@ class login extends React.Component {
 
    handle_login = async (e) => {
      e.preventDefault();
-    console.log('hey');
+    // console.log('hey');
    const res=await fetch('https://wizdem.pythonanywhere.com/Attendance/login-teacher/', {
       method: 'POST',
       headers: {
@@ -104,25 +104,25 @@ class login extends React.Component {
         password: this.state.password,
       })
     })
-    console.log(res.status);
+    // console.log(res.status);
     if(res.status === 500){
-      console.log('ji');
+      // console.log('ji');
       this.setState({
         open:true
       })
     }
 
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
 
     if(res.status === 200){
       localStorage.setItem('token',data.token);
       this.setState({
         logged_in:true,
       });
-      console.log(this.state);
+      // console.log(this.state);
     }
-     
+
       // .then(res => console.log(res.json())  )
 
     //   .catch(error => {
@@ -146,7 +146,7 @@ class login extends React.Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
-    console.log(this.state)
+    // console.log(this.state)
   };
   render() {
     const { classes } = this.props;
@@ -154,7 +154,7 @@ class login extends React.Component {
       <div className={classes.main} >
         <PersistentDrawerLeft />
         <Paper className={classes.paper}>
-        
+
         <Avatar className={classes.avatar}>
          <LockOutlinedIcon />
        </Avatar>
@@ -169,7 +169,7 @@ class login extends React.Component {
           type="text"
           name="teacherId"
           margin="normal"
-          
+
         />
         <TextField style={{ maxWidth: 300 }}
           id="password"
@@ -178,7 +178,7 @@ class login extends React.Component {
           type="password"
           name="password"
           margin="normal"
-          
+
         /> */}
         <FormControl margin="normal" required fullWidth>
            <InputLabel htmlFor="email">Teacher Id</InputLabel>
@@ -189,7 +189,7 @@ class login extends React.Component {
            <Input name="password" type="password" id="password" value={this.state.password} onChange={this.handleChange} autoComplete="current-password" />
          </FormControl>
          <Button
-           
+
            fullWidth
            variant="contained"
            color="primary"
@@ -209,14 +209,14 @@ class login extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-         
+
           <DialogContent>
             <DialogContentText id="alert-dialog-description">
               Incorrect Teacher ID and Password. Please Try Again.
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            
+
             <Button onClick={this.handleClose} color="primary" autoFocus>
               Ok
             </Button>

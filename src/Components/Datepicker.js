@@ -7,11 +7,11 @@ import Button from '@material-ui/core/Button';
 import { DatePicker } from "material-ui-pickers";
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
- 
+
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-const styles = theme => ({ 
+const styles = theme => ({
     root:{
       margin:'auto',
       textAlign:'center',
@@ -33,11 +33,11 @@ const styles = theme => ({
         backgroundColor: 'black',
         color:'white'
       }
-     
+
     }
 
 })
- 
+
 class Datepicker extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -47,11 +47,11 @@ class Datepicker extends React.Component {
   //   this.handleChange = this.handleChange.bind(this);
   // }
 
-  
- 
-  
-  
- 
+
+
+
+
+
   render() {
     const{ classes,handleChange,updateChange,startDate }= this.props
     return (
@@ -63,7 +63,7 @@ class Datepicker extends React.Component {
       /> */}
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
        <DatePicker
-          label="Date of birth"
+          label="Date"
           value={startDate}
           disableFuture
           openTo="day"
@@ -75,13 +75,13 @@ class Datepicker extends React.Component {
           onChange={handleChange}
         />
         </MuiPickersUtilsProvider>
-      
+
      <br />
       <Button variant="contained" color="primary" onClick={updateChange} className={classes.button}> Submit</Button>
-      
+
       {/* {`${this.state.startDate}`} */}
       </div>
-      
+
     );
   }
 }
