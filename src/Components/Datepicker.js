@@ -1,18 +1,22 @@
 import React from "react";
-import DatePicker from "react-datepicker";
+// import DatePicker from "react-datepicker";
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import "react-datepicker/dist/react-datepicker.css";
+// import "react-datepicker/dist/react-datepicker.css";
 import Button from '@material-ui/core/Button';
- 
+import { DatePicker } from "material-ui-pickers";
+import DateFnsUtils from '@date-io/date-fns';
+import { MuiPickersUtilsProvider } from 'material-ui-pickers';
+
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-const styles = theme => ({ 
+const styles = theme => ({
     root:{
       margin:'auto',
       textAlign:'center',
-      display:'flex'
+      display:'flex',
+      justifyContent:'center'
     },
 
     date:{
@@ -29,11 +33,11 @@ const styles = theme => ({
         backgroundColor: 'black',
         color:'white'
       }
-     
+
     }
 
 })
- 
+
 class Datepicker extends React.Component {
   // constructor(props) {
   //   super(props);
@@ -43,44 +47,41 @@ class Datepicker extends React.Component {
   //   this.handleChange = this.handleChange.bind(this);
   // }
 
-  state={
-    startDate: new Date()
-  }
- 
-  handleChange = (date) => {
-    this.setState({
-      startDate: date
-    });
 
-  }
-  
-  updateChange = () => {
-    var completeDate=this.state.startDate;
-    console.log(this.state.startDate);
-    var date=completeDate.getDate();
-    var month =completeDate.getMonth()+1;
-    var year = completeDate.getFullYear();
-    
-        console.log(date +"/"+month+"/"+year);
-    
 
-  }
- 
+
+
+
   render() {
-    const{ classes }= this.props
+    const{ classes,handleChange,updateChange,startDate }= this.props
     return (
       <div className={classes.root} >
-        <DatePicker
-        selected={this.state.startDate}
-        onChange={this.handleChange}
+        {/* <DatePicker
+        selected={startDate}
+        onChange={handleChange}
         className={classes.date}
-      />
+      /> */}
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
+       <DatePicker
+          label="Date"
+          value={startDate}
+          disableFuture
+          openTo="day"
+          // format={props.getFormatString({
+          //   moment: "DD/MM/YYYY",
+          //   dateFns: "dd/MM/yyyy",
+          // })}
+          // views={["year", "month", "day"]}
+          onChange={handleChange}
+        />
+        </MuiPickersUtilsProvider>
+
      <br />
-      <Button variant="outlined" color="primary" onClick={this.updateChange} className={classes.button}> Submit</Button>
-      
+      <Button variant="contained" color="primary" onClick={updateChange} className={classes.button}> Submit</Button>
+
       {/* {`${this.state.startDate}`} */}
       </div>
-      
+
     );
   }
 }

@@ -61,8 +61,45 @@ const rows = [
 ];
 
 class StudentAttend extends React.Component {
+
+  state ={
+    attendance:[],
+    attendance_count:'',
+    attendance_percentage:'',
+    attendance_total:''
+  }
+
+  async componentDidMount(){
+    const res=await fetch(`https://wizdem.pythonanywhere.com/Attendance/get-attendance-of-student/${this.props.location.subject}/${this.props.location.sapID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization': `Token ${localStorage.getItem('token')}`,
+      },
+      // mode: 'no-cors',
+    })
+    // console.log(res);
+    const data = await res.json();
+    // console.log(data);
+
+    if(res.status === 200){
+      this.setState({
+        attendance:data.attendance,
+        attendance_count:data.attendance_count,
+        attendance_total:data.attendance_total,
+        attendance_percentage:data.attendance_percentage
+      })
+
+
+      // console.log('fuck off');
+
+  }
+  }
   render(){
     const { classes } = this.props;
+    const {attendance,attendance_count,attendance_percentage,attendance_total} = this.state;
+
 
     return (
       <div>
@@ -72,7 +109,12 @@ class StudentAttend extends React.Component {
           </Grid>
           <Grid item xs={8}>
             <Grid container className={classes.table}>
-              <Grid item xs={12}><Typography align='center' component="h2" variant="display3">Attendance for Shail Shah</Typography></Grid>
+              <Grid item xs={6}><Typography align='center' variant="h5">SAP ID: {this.props.location.sapID}</Typography></Grid>
+              <Grid item xs={6} align='center' >
+              <Typography variant="h6">Attendance count : {attendance_count}</Typography>
+          <Typography variant="h6">Attendance percentage : {attendance_percentage}</Typography>
+          <Typography variant="h6">Attendance total : {attendance_total}</Typography>
+              </Grid>
             </Grid>
               <Grid item xs={12} sm={12}>
                 <Paper>
@@ -80,19 +122,24 @@ class StudentAttend extends React.Component {
                     <TableHead>
                       <TableRow>
                         <CustomTableCell style={{fontSize:'1rem'}}>Date</CustomTableCell>
+                        <CustomTableCell style={{fontSize:'1rem'}}>Time</CustomTableCell>
+
                         <CustomTableCell style={{fontSize:'1rem'}}>Present/Absent</CustomTableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows.map(row => (
+                      {attendance.map(row => (
                         <TableRow className={classes.row} key={row.id}>
                           <CustomTableCell component="th" scope="row">
                             {row.date}
                           </CustomTableCell>
+                          <CustomTableCell component="th" scope="row">
+                            {row.timing}
+                          </CustomTableCell>
                           {
-                            row.p_a.toLowerCase() == "present" ? <CustomTableCell className={classes.green}>{row.p_a}</CustomTableCell> : <CustomTableCell className={classes.red}>{row.p_a}</CustomTableCell>
+                            row.attendance === "1" ? <CustomTableCell className={classes.green}>{row.attendance}</CustomTableCell> : <CustomTableCell className={classes.red}>{row.attendance}</CustomTableCell>
                           }
-                          
+
                         </TableRow>
                       ))}
                     </TableBody>
@@ -103,6 +150,9 @@ class StudentAttend extends React.Component {
             <Grid item xs={2}>
             </Grid>
           </Grid>
+
+
+
       </div>
     );
   }

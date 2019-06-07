@@ -3,11 +3,17 @@ import PersistentDrawerLeft from './Components/PersistentDrawerLeft';
 import {Grid , Paper , Typography, TextField, Button, MenuItem, Select, InputLabel, FormControl} from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import {Redirect} from 'react-router-dom';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Avatar from '@material-ui/core/Avatar';
+import {Link} from 'react-router-dom';
 const styles = theme => ({
   root: {
     margin:'auto',
-    maxWidth:650,
+    maxWidth:550,
     height:'100vh',
     flexWrap: 'wrap',
     textAlign:'center',
@@ -16,36 +22,84 @@ const styles = theme => ({
     // }
   },
   Grid: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit ,
     textAlign: 'center',
   },
   text: {
     color: 'black',
   },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.primary.main,
+  },
   button: {
-    margin: 40,
+    margin: 20,
     padding: 2,
     height: 50,
     width: 300,
 
   },
   paper: {
-    padding:25,
-    
-    
+    padding:15,
+    alignItems:'center'
+
+
    },
 });
 
 
-
-
 class Teacher extends React.Component{
-  state={age: ''}
+  state={
+    age: '',
+    fname:'',
+    lname:'',
+    password:'',
+    spec:'',
+    teacherId:'',
+    signup:false
+  }
+
+
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    // console.log('hi');
+    const res=await fetch('https://wizdem.pythonanywhere.com/Attendance/signup-teacher/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      // mode: 'no-cors',
+      body: JSON.stringify({
+        fname: this.state.fname,
+        lname:this.state.lname,
+        spec:this.state.spec,
+        teacherId:this.state.teacherId,
+        password: this.state.password,
+      })
+    })
+    // console.log(res);
+    const data = await res.json();
+    // console.log(data);
+
+    if(res.status === 200){
+      localStorage.setItem('token',data.token);
+
+
+      this.setState({
+        signup:true
+      });
+
+    }
+
+  }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    // console.log(this.state);
   };
-  
+
   render(){
     const { classes } = this.props;
 
@@ -53,93 +107,94 @@ class Teacher extends React.Component{
       <div className={classes.root}>
         <PersistentDrawerLeft />
         <Paper className={classes.paper}>
+        <Avatar className={classes.avatar} align="center" style={{margin:'auto',marginBottom:15}}>
+         <LockOutlinedIcon />
+       </Avatar>
+       <Typography component="h1" variant="h5">
+         Sign Up
+       </Typography>
         <Grid container spacing={12} >
-          <Grid item xs> 
+          <Grid item xs>
           </Grid>
           <Grid item xs>
-            <div>
-              <Typography component="h2" variant="display3" gutterBottom className={classes.text}>Teacher</Typography>
-            </div>
+
             <div>
               <form autoComplete="off">
-                <Grid container spacing={24}>
-                  <Grid item xs={6}>
+                <Grid container>
+                  <Grid item xs={12}>
                     <TextField
+                    name="fname"
                     id="outlined-name"
                     label="First Name"
-                    value={this.state.name}
+                    value={this.state.fname}
+                    onChange={this.handleChange}
                     margin="normal"
-                    variant="outlined"
-                    fullWidth />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                    id="outlined-name"
-                    label="Surname"
-                    value={this.state.name}
-                    margin="normal"
-                    variant="outlined"
+                    autoFocus
                     fullWidth />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                    name="lname"
+                    id="outlined-name"
+                    label="Last Name"
+                    value={this.state.lname}
+                    onChange={this.handleChange}
+                    margin="normal"
+
+                    fullWidth />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      name="password"
                       id="outlined-name"
-                      label="User"
-                      value={this.state.name}
+                      label="Password"
+                      type="password"
+                      value={this.state.password}
+                      onChange={this.handleChange}
                       margin="normal"
-                      variant="outlined"
+
                       fullWidth />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                      name="spec"
                       id="outlined-name"
                       label="Specialisation"
-                      value={this.state.name}
+                      value={this.state.spec}
+                      onChange={this.handleChange}
                       margin="normal"
-                      variant="outlined"
+
                       fullWidth />
                   </Grid>
                   <Grid item xs={12}>
                     <TextField
+                    name="teacherId"
                       id="outlined-name"
                       label="Teacher-ID"
-                      value={this.state.name}
+                      value={this.state.teacherId}
+                      onChange={this.handleChange}
                       margin="normal"
-                      variant="outlined"
+
                       fullWidth />
                   </Grid>
-                  <Grid item xs>
-                    <FormControl>
-                      <InputLabel htmlFor="age-simple">Subject</InputLabel>
-                      <Select style={{width:150}}
-                      value={this.state.age}
-                      onChange={this.handleChange}
-                      inputProps={{
-                      name: 'age',
-                      id: 'age-simple',
-                      }}>
-                        <MenuItem value=""><em>None</em></MenuItem>
-                        <MenuItem value={10}>OS</MenuItem>
-                        <MenuItem value={20}>AOA</MenuItem>
-                        <MenuItem value={20}>COA</MenuItem>
-                        <MenuItem value={20}>OSL</MenuItem>
-                        <MenuItem value={20}>Maths</MenuItem>
-                        <MenuItem value={20}>CG</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Grid>
+
+
+
                 </Grid>
               </form>
               <div>
-                <Button variant="contained" color="primary"  className={classes.button}>Submit</Button>
+                <Button variant="contained" color="primary"  className={classes.button} onClick={this.handleSubmit}>Submit</Button>
               </div>
             </div>
           </Grid>
           <Grid item xs>
           </Grid>
         </Grid>
+        <Typography variant="h6" style={{marginTop:10}}>Already have an account? <Link to="/" style={{textDecoration:'none'}}>Sign In</Link></Typography>
+
         </Paper>
-        
+        {this.state.signup && <Redirect to="/teachermain" />}
+
       </div>
     );
   }

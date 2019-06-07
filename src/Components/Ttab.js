@@ -51,7 +51,7 @@ class Ttab extends React.Component {
 
     return (
       <div className={classes.root}>
-      
+
         <AppBar position="static" color="default">
           <Tabs
             value={this.state.value}
@@ -68,12 +68,12 @@ class Ttab extends React.Component {
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={this.state.value}
           onChangeIndex={this.handleChangeIndex}
-          
+
         >
           <TabContainer dir={theme.direction}>
-            <Mysubjectcard />
+            <Mysubjectcard taught_subjects={this.props.data.taught_subjects}/>
           </TabContainer>
-          <TabContainer  dir={theme.direction}><Myclasscard /></TabContainer>
+          <TabContainer  dir={theme.direction}><Myclasscard class_subjects={this.props.data.class_subjects}/></TabContainer>
         </SwipeableViews>
       </div>
     );

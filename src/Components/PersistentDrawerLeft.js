@@ -15,6 +15,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import {Redirect} from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 
@@ -86,7 +87,14 @@ const styles = theme => ({
 class PersistentDrawerLeft extends React.Component {
   state = {
     open: false,
+    logged_in:''
   };
+
+  componentDidMount(){
+    this.setState({
+      logged_in: localStorage.getItem('token') ? true : false,
+    })
+  }
 
   handleDrawerOpen = () => {
     this.setState({ open: true });
@@ -95,6 +103,13 @@ class PersistentDrawerLeft extends React.Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
+
+  handleLogout = () =>{
+    localStorage.removeItem("token");
+    this.setState({
+      logged_in:false
+    })
+  }
 
   render() {
     const { classes, theme } = this.props;
@@ -118,9 +133,10 @@ class PersistentDrawerLeft extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" color="inherit" noWrap>
+            <Typography variant="h6" color="inherit" noWrap style={{flexGrow:1}}>
               Attendance Web
             </Typography>
+            <Link to="/" style={{textDecoration:'none',color:'white'}}><Typography onClick={this.handleLogout} variant="h6" color="inherit" style={{marginRight:10}} >Logout</Typography></Link>
           </Toolbar>
         </AppBar>
         <Drawer
@@ -209,6 +225,7 @@ class PersistentDrawerLeft extends React.Component {
 
 
         </main>
+        {/* {!this.props.logged_in && <Redirect to="/" />} */}
       </div>
     );
   }
